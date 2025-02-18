@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Modern Library Hub</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #6c63ff;
+        --secondary: #2a2a72;
+        --accent: #4facfe;
+        --background: #f8f9fd;
+        --text: #2d3436;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background-color: var(--background);
+        color: var(--text);
+      }
+
+      .hero-section {
+        height: 80vh;
+        background: linear-gradient(45deg, #6c63ff11 0%, #4facfe11 100%);
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        position: relative;
+        z-index: 2;
+      }
+
+      .glass-nav {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        position: fixed;
+        width: 100%;
+        padding: 1.5rem;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .search-container {
+        position: relative;
+        max-width: 800px;
+        margin: 3rem auto;
+      }
+
+      .modern-search {
+        width: 100%;
+        padding: 1.2rem 2rem;
+        border: none;
+        border-radius: 50px;
+        background: white;
+        box-shadow: 0 10px 20px rgba(108, 99, 255, 0.1);
+        font-size: 1.1rem;
+      }
+
+      .feature-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        padding: 2rem;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+      }
+
+      .modern-btn {
+        background: linear-gradient(45deg, var(--primary), var(--accent));
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .modern-btn:hover {
+        box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+        transform: translateY(-2px);
+      }
+
+      .stats {
+        display: flex;
+        justify-content: space-around;
+        margin: 4rem 0;
+        flex-wrap: wrap;
+      }
+
+      .stat-item {
+        text-align: center;
+        padding: 2rem;
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .floating-books {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .book {
+        position: absolute;
+        color: var(--primary);
+        opacity: 0.2;
+        animation: float 15s linear infinite;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+        }
+        100% {
+          transform: translateY(-100vh) rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="glass-nav">
+      <div class="nav-logo">ModernLib</div>
+      <div>
+        <a href="/member/register"><button class="modern-btn">Register</button></a>
+		<a href="/login"><button class="modern-btn">Login</button></a>
+      </div>
+    </nav>
+
+    <section class="hero-section">
+      <div class="floating-books">
+        <!-- Books will be added via JavaScript -->
+      </div>
+      <div class="hero-content">
+      
+      <div class="message" th:if="${session.success != null || session.error != null}">
+      	<h3 style="color: green;" th:text="${session.success}"></h3>
+      	<h3 style="color: red;" th:text="${session.error}"></h3>
+      	<th:block th:text="${@messageManage.remove}"></th:block>
+      </div>
+      
+        <h1 style="font-size: 3.5rem; margin-bottom: 1rem">
+          Discover Your Next <br />Great Read
+        </h1>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem">
+          Access millions of books, audiobooks, and more
+        </p>
+        <div class="search-container">
+          <input
+            type="text"
+            class="modern-search"
+            placeholder="Search books, authors, or genres..."
+          />
+        </div>
+      </div>
+    </section>
+
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-number">1M+</div>
+        <div>Books Available</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">500K+</div>
+        <div>Active Readers</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">50K+</div>
+        <div>Digital Downloads</div>
+      </div>
+    </div>
+
+    <div class="feature-cards">
+      <div class="card">
+        <h3>Digital Library</h3>
+        <p>Access thousands of e-books and audiobooks instantly</p>
+      </div>
+      <div class="card">
+        <h3>Smart Recommendations</h3>
+        <p>Get personalized book suggestions based on your interests</p>
+      </div>
+      <div class="card">
+        <h3>Reading Challenges</h3>
+        <p>Join reading challenges and track your progress</p>
+      </div>
+    </div>
+
+    <script>
+      const books = document.querySelector(".floating-books"); 
+      const bookIcons = ["📚", "📖", "📕", "📗", "📘", "📙"];
+
+      for (let i = 0; i < 15; i++) {
+        const book = document.createElement("div");
+        book.classList.add("book");
+        book.innerHTML =
+          bookIcons[Math.floor(Math.random() * bookIcons.length)];
+        book.style.fontSize = Math.random() * 30 + 20 + "px";
+        book.style.left = Math.random() * 100 + "%";
+        book.style.animationDelay = Math.random() * 15 + "s";
+        books.appendChild(book);
+      }
+      
+      document.addEventListener('DOMContentLoaded', function() {
+			const message = document.querySelector('.message');
+			if (message) {
+				setTimeout(function() {
+					message.style.display = 'none';
+				}, 2000);
+			}
+		});
+    </script>
+  </body>
+</html>

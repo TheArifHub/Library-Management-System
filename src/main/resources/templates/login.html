@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login - Modern Library Hub</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #6c63ff;
+        --secondary: #2a2a72;
+        --accent: #4facfe;
+        --background: #f8f9fd;
+        --text: #2d3436;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background-color: var(--background);
+        color: var(--text);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 80px;
+      }
+
+      .glass-nav {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 1.5rem;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .nav-buttons {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .nav-link {
+        color: var(--primary);
+        text-decoration: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+      }
+
+      .nav-link:hover {
+        background: linear-gradient(45deg, var(--primary), var(--accent));
+        color: white;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 400px;
+        padding: 2rem;
+      }
+
+      form {
+        background: white;
+        padding: 3rem;
+        border-radius: 20px;
+        box-shadow: 0 10px 20px rgba(108, 99, 255, 0.1);
+      }
+
+      input {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        margin: 0.8rem 0;
+        border: 1px solid #eee;
+        border-radius: 50px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+      }
+
+      button {
+        background: linear-gradient(45deg, var(--primary), var(--accent));
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+        width: 100%;
+      }
+
+      button:hover {
+        box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+        transform: translateY(-2px);
+      }
+
+      h1 {
+        color: var(--primary);
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+        text-align: center;
+      }
+
+      .floating-books {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: -1;
+      }
+
+      .book {
+        position: absolute;
+        color: var(--primary);
+        opacity: 0.2;
+        animation: float 15s linear infinite;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+        }
+        100% {
+          transform: translateY(-100vh) rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="glass-nav">
+      <div class="nav-logo">ModernLib</div>
+      <div class="nav-buttons">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/member/register" class="nav-link">Register</a>
+      </div>
+    </nav>
+
+    <div class="floating-books">
+      <!-- Books will be added via JavaScript -->
+    </div>
+
+    <div class="container">
+      <form action="/login" method="post" th:object="${member}">
+        <h1>Welcome Back</h1>
+
+        <div class="message" th:if="${session.success != null || session.error != null}">
+          <h3 style="color: green;" th:text="${session.success}"></h3>
+          <h3 style="color: red;" th:text="${session.error}"></h3>
+          <th:block th:text="${@messageManage.remove}"></th:block>
+        </div>
+
+        <div>
+          <input type="text" th:field="*{email}" placeholder="Enter your email" />
+        </div>
+
+        <div>
+          <input type="password" th:field="*{password}" placeholder="Enter your password" />
+        </div>
+			
+        <div>
+          <button type="submit">Login</button>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      const books = document.querySelector(".floating-books");
+      const bookIcons = ["📚", "📖", "📕", "📗", "📘", "📙"];
+
+      for (let i = 0; i < 15; i++) {
+        const book = document.createElement("div");
+        book.classList.add("book");
+        book.innerHTML = bookIcons[Math.floor(Math.random() * bookIcons.length)];
+        book.style.fontSize = Math.random() * 30 + 20 + "px";
+        book.style.left = Math.random() * 100 + "%";
+        book.style.animationDelay = Math.random() * 15 + "s";
+        books.appendChild(book);
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const message = document.querySelector('.message');
+        if (message) {
+          setTimeout(function() {
+            message.style.display = 'none';
+          }, 2000);
+        }
+      });
+    </script>
+  </body>
+</html>
