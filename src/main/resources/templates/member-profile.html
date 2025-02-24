@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Member Profile - Modern Library Hub</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/member-profile.css">
+  </head>
+  <body>
+    <nav class="glass-nav">
+      <div class="nav-logo">ModernLib</div>
+      <div>
+        <a href="/member/member-home"><button class="modern-btn">Home</button></a>
+        <a href="/logout"><button class="modern-btn">Logout</button></a>
+      </div>
+    </nav>
+
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="profile-header">
+          <div class="profile-avatar">
+            <i class="fas fa-user-circle"></i>
+          </div>
+          <h1>Welcome, <span th:text="${session.member.fullName}">Member</span></h1>
+          <div class="edit-profile-container">
+            <a th:href="'/member/edit-profile/'+${session.member.id}" class="edit-profile-button">
+              <i class="fas fa-user-edit"></i>
+              Edit Your Profile
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-number">15</div>
+        <div>Books Borrowed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">5</div>
+        <div>Currently Reading</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">10</div>
+        <div>Reading History</div>
+      </div>
+    </div>
+
+    <div class="profile-details">
+      <div class="detail-card">
+        <h3><i class="fas fa-info-circle"></i> Personal Information</h3>
+        <div class="detail-item">
+          <span>Email:</span>
+          <span th:text="${session.member.email}">email@example.com</span>
+        </div>
+        <div class="detail-item">
+          <span>Phone:</span>
+          <span th:text="${session.member.phone}">1234567890</span>
+        </div>
+        <div class="detail-item">
+          <span>Join Date:</span>
+          <span th:text="${session.member.joinDate}">01/01/2024</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

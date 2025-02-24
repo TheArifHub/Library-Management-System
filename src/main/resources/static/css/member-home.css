@@ -69,6 +69,19 @@ body {
   font-size: 1.1rem;
 }
 
+.search-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--primary);
+  border: none;
+  color: white;
+  padding: 0.8rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 .feature-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -82,6 +95,12 @@ body {
   padding: 2rem;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease;
+  text-align: center;
+}
+
+.card i {
+  color: var(--primary);
+  margin-bottom: 1rem;
 }
 
 .card:hover {
@@ -97,6 +116,9 @@ body {
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .modern-btn:hover {
@@ -122,6 +144,59 @@ body {
   color: var(--primary);
 }
 
+.reading-progress {
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 2rem;
+}
+
+.progress-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.progress-bar {
+  background: #eee;
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.progress {
+  background: linear-gradient(45deg, var(--primary), var(--accent));
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.recent-activity {
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 2rem;
+}
+
+.activity-timeline {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.activity-item i {
+  color: var(--primary);
+}
+
 .floating-books {
   position: absolute;
   width: 100%;
@@ -143,5 +218,28 @@ body {
   }
   100% {
     transform: translateY(-100vh) rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .glass-nav {
+    padding: 1rem;
+  }
+
+  .modern-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .stats {
+    flex-direction: column;
+  }
+
+  .feature-cards {
+    grid-template-columns: 1fr;
   }
 }

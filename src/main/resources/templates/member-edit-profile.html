@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Edit Profile - Modern Library Hub</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/member-edit-profile.css">
+  </head>
+  <body>
+    <nav class="glass-nav">
+      <div class="nav-logo">ModernLib</div>
+      <div>
+        <a href="/member/member-profile"><button class="modern-btn">Back to Profile</button></a>
+        <a href="/logout"><button class="modern-btn">Logout</button></a>
+      </div>
+    </nav>
+
+    <section class="edit-hero-section">
+      <div class="edit-content">
+        <h1>Edit Your Profile</h1>
+        <div class="edit-form-container">
+          <form th:action="@{/member/update}" method="post" class="modern-form" th:object="${member}">
+            <input type="hidden" th:field="${member.id}" />
+            
+            <div class="form-group">
+              <label><i class="fas fa-user"></i> Full Name</label>
+              <input type="text" th:field="${member.fullName}" class="modern-input"  />
+              <small class="error-message" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></small>
+            </div>
+
+            <div class="form-group">
+              <label><i class="fas fa-envelope"></i> Email</label>
+              <input type="email" th:field="${member.email}" class="modern-input"/>
+              <small class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+            </div>
+
+            <div class="form-group">
+              <label><i class="fas fa-phone"></i> Phone</label>
+              <input type="tel" th:field="${member.phone}" class="modern-input"/>
+              <small class="error-message" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></small>
+            </div>
+
+            <div class="form-group">
+              <label><i class="fas fa-map-marker-alt"></i> Address</label>
+              <textarea th:field="${member.address}" class="modern-textarea" required></textarea>
+              <small class="error-message" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></small>
+            </div>
+
+            <button type="submit" class="submit-btn">
+              <i class="fas fa-save"></i> Save Changes
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

@@ -1,9 +1,11 @@
 package com.library_management_system.library_management_system.dto;
 
+import java.time.LocalDate;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -33,24 +35,21 @@ public class Member {
 	@Size(min = 10, max = 45, message = "* Enter between 10-45 characters")
 	private String address;
 
-	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
-	         message = "Password must contain:\n" +
-	                  "- At least 8 characters\n" +
-	                  "- One uppercase letter\n" +
-	                  "- One lowercase letter\n" +
-	                  "- One number\n" +
-	                  "- One special character (@#$%^&+=)\n" +
-	                  "- No spaces")
+	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message = "Password must contain:\n"
+			+ "- At least 8 characters\n" + "- One uppercase letter\n" + "- One lowercase letter\n" + "- One number\n"
+			+ "- One special character (@#$%^&+=)\n" + "- No spaces")
 	private String password;
 
 	@Transient
-	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
-    message = "Password must contain:\n" +
-             "- At least 8 characters\n" +
-             "- One uppercase letter\n" +
-             "- One lowercase letter\n" +
-             "- One number\n" +
-             "- One special character (@#$%^&+=)\n" +
-             "- No spaces")
+	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message = "Password must contain:\n"
+			+ "- At least 8 characters\n" + "- One uppercase letter\n" + "- One lowercase letter\n" + "- One number\n"
+			+ "- One special character (@#$%^&+=)\n" + "- No spaces")
 	private String confirmPassword;
+
+	private LocalDate joinDate;
+
+	@PrePersist
+	private void onRegister() {
+		this.joinDate = LocalDate.now();
+	}
 }

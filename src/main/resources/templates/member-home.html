@@ -13,16 +13,15 @@
     <nav class="glass-nav">
       <div class="nav-logo">ModernLib</div>
       <div>
-        <a href="/member/profile"><button class="modern-btn">My Profile</button></a>
-        <a href="/member/my-books"><button class="modern-btn">My Books</button></a>
-        <a href="/logout"><button class="modern-btn">Logout</button></a>
+        <a href="/member/member-profile"><button class="modern-btn"><i class="fas fa-user"></i> My Profile</button></a>
+        <a href="/member/my-books"><button class="modern-btn"><i class="fas fa-book"></i> My Books</button></a>
+        <a href="/member/notifications"><button class="modern-btn"><i class="fas fa-bell"></i> Notifications</button></a>
+        <a href="/logout"><button class="modern-btn"><i class="fas fa-sign-out-alt"></i> Logout</button></a>
       </div>
     </nav>
 
     <section class="hero-section">
-      <div class="floating-books">
-        <!-- Books will be added via JavaScript -->
-      </div>
+      <div class="floating-books"></div>
       <div class="hero-content">
         <div class="message" th:if="${session.success != null || session.error != null}">
           <h3 style="color: green;" th:text="${session.success}"></h3>
@@ -31,38 +30,92 @@
         </div>
         
         <h1 style="font-size: 3.5rem; margin-bottom: 1rem">
-          Welcome to Your Library Dashboard
+          Welcome Back, <span th:text="${session.member.fullName}">Member</span>!
         </h1>
         <p style="font-size: 1.2rem; margin-bottom: 2rem">
-          Explore your personalized reading experience
+          Your Personal Reading Journey Continues Here
         </p>
         <div class="search-container">
           <input
             type="text"
             class="modern-search"
-            placeholder="Search in your library..."
+            placeholder="Search books, authors, or your borrowed items..."
           />
+          <button class="search-btn"><i class="fas fa-search"></i></button>
         </div>
       </div>
     </section>
 
-    <div class="feature-cards">
-      <div class="card">
-        <h3>My Borrowed Books</h3>
-        <p>View and manage your current borrowed books</p>
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-number" th:text="${borrowedCount}">5</div>
+        <div>Currently Borrowed</div>
       </div>
-      <div class="card">
-        <h3>Reading History</h3>
-        <p>Track your reading journey and history</p>
+      <div class="stat-item">
+        <div class="stat-number" th:text="${readCount}">25</div>
+        <div>Books Read</div>
       </div>
-      <div class="card">
-        <h3>Book Recommendations</h3>
-        <p>Personalized suggestions based on your interests</p>
-      </div>
-      <div class="card">
-        <h3>Due Dates</h3>
-        <p>Keep track of your book return dates</p>
+      <div class="stat-item">
+        <div class="stat-number" th:text="${reviewCount}">10</div>
+        <div>Reviews Written</div>
       </div>
     </div>
+
+    <div class="feature-cards">
+      <div class="card">
+        <i class="fas fa-book-reader fa-2x"></i>
+        <h3>Current Reads</h3>
+        <p>Currently reading: <span th:text="${currentBook}">Book Title</span></p>
+        <button class="modern-btn">Continue Reading</button>
+      </div>
+      <div class="card">
+        <i class="fas fa-history fa-2x"></i>
+        <h3>Reading History</h3>
+        <p>Track your completed books and progress</p>
+        <button class="modern-btn">View History</button>
+      </div>
+      <div class="card">
+        <i class="fas fa-star fa-2x"></i>
+        <h3>Recommendations</h3>
+        <p>Personalized book suggestions for you</p>
+        <button class="modern-btn">Explore</button>
+      </div>
+      <div class="card">
+        <i class="fas fa-calendar-alt fa-2x"></i>
+        <h3>Due Dates</h3>
+        <p>Next return: <span th:text="${nextDueDate}">Date</span></p>
+        <button class="modern-btn">View All</button>
+      </div>
+    </div>
+
+    <section class="reading-progress">
+      <h2>Reading Goals</h2>
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress" style="width: 75%"></div>
+        </div>
+        <p>75% towards your monthly reading goal</p>
+      </div>
+    </section>
+
+    <section class="recent-activity">
+      <h2>Recent Activity</h2>
+      <div class="activity-timeline">
+        <div class="activity-item">
+          <i class="fas fa-bookmark"></i>
+          <p>Borrowed "The Great Gatsby" - 2 days ago</p>
+        </div>
+        <div class="activity-item">
+          <i class="fas fa-star"></i>
+          <p>Reviewed "1984" - 5 days ago</p>
+        </div>
+        <div class="activity-item">
+          <i class="fas fa-check-circle"></i>
+          <p>Completed "The Hobbit" - 1 week ago</p>
+        </div>
+      </div>
+    </section>
+
+    <script src="/js/member-home.js"></script>
   </body>
 </html>

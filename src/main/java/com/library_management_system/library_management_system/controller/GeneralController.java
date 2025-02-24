@@ -33,5 +33,11 @@ public class GeneralController {
 			ModelMap map) {
 		return generalService.loginPage(email, password, session, map);
 	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session)
+	{
+		return generalService.logout(session);
+	}
 
 }
